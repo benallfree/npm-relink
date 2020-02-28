@@ -10,14 +10,6 @@ This package re-establishes symlinks after `npm i` has run. This shortcoming of 
 
 ## Usage
 
-In your `package.json`:
-
-```json
-"scripts": {
-    "postinstall": "npm-relink"
-}
-```
-
 Initialize from your project root:
 
 ```bash
@@ -25,4 +17,10 @@ Initialize from your project root:
 % echo ".npm-relink.json" >> .gitignore
 ```
 
-Any time you run `npm link`, run `npm-relink init` afterward, or just add the package name to `.npm-relink.json` directly.
+Any time you run `npm install`, run `npm-relink` afterward.
+
+When you run `npm link', run 'npm-relink init` afterward to capture changes.
+
+## Further Development
+
+I wish there were a way to do a post hook for dependency installation via `npm install <package>`. Something like `depinstall` [ticket opened here](https://github.com/npm/cli/issues/962)
