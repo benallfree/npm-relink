@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const program = require('commander')
+const { execSync } = require('child_process')
+program.version('0.0.1')
+
+program
+  .command('init')
+  .description('Initialize the relink tracking.')
+  .action(async () => {
+    const getSymlinks = require('get-symlinks')
+
+    const symlinks = await getSymlinks(['./node_modules/*'], {
+      onlyDirectories: true,
+      followSymlinks: false
+    })
+
+    const path = require('path')
+    const packages = symlinks.map(l => {
+      const packageName = path.basename(l)
+      console.log(`Tracking ${packageName}`)
+      return packageName
+    })
+
+    fs.writeFileSync('./.npm-relink.json', JSON.stringify(packages))
+    console.log(`Wrote .npm-relink.json`)
+  })
+
+program.command('link').action(() => {
+  console.log('Relinking')
+  if (!fs.existsSync('./.npm-relink.json')) {
+    console.warn(`.npm-relink.json not found - run 'npm-relink init' first`)
+    return
+  }
+  const json = fs.readFileSync('./.npm-relink.json', { encoding: 'utf8' })
+  const packages = JSON.parse(json)
+  if (!packages) {
+    console.warn(`.npm-relink.json is corrupt - re-run 'npm-relink init'`)
+    return
+  }
+  packages.forEach(p => {
+    const cmd = `npm link ${p}`
+    console.log(cmd)
+    execSync(cmd)
+  })
+  console.log('Relinking complete')
+})
+
+const args = process.argv
+if (args.length < 3) args.push('link')
+const cmd = program.parse(args)

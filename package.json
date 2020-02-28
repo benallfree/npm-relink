@@ -1,0 +1,31 @@
+{
+  "name": "npm-relink",
+  "version": "0.0.1",
+  "description": "Re-establishes `npm link` directives after npm install.",
+  "bin": {
+    "npm-relink": "./bin/relink"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/benallfree/npm-relink.git"
+  },
+  "keywords": [
+    "npm",
+    "link",
+    "relink",
+    "symlink"
+  ],
+  "author": "Ben Allfree",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benallfree/npm-relink/issues"
+  },
+  "homepage": "https://github.com/benallfree/npm-relink#readme",
+  "dependencies": {
+    "commander": "^4.1.1",
+    "get-symlinks": "^3.0.1"
+  }
+}
