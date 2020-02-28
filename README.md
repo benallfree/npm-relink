@@ -24,3 +24,5 @@ Initialize from your project root:
 % npm-relink init
 % echo ".npm-relink.json" >> .gitignore
 ```
+
+Any time you run `npm link`, run `npm-relink init` afterward, or just add the package name to `.npm-relink.json` directly.
