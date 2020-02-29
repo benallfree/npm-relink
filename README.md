@@ -13,13 +13,22 @@ This package re-establishes symlinks after `npm i` has run. This shortcoming of 
 Initialize from your project root:
 
 ```bash
+% npm i -D npm-relink
 % npm-relink init
 % echo ".npm-relink.json" >> .gitignore
 ```
 
-Any time you run `npm install`, run `npm-relink` afterward.
+Add a `postinstall` script to `package.json`:
 
-When you run `npm link', run 'npm-relink init` afterward to capture changes.
+```json
+"scripts": {
+    "postinstall": "npm-relink"
+}
+```
+
+Any time you run `npm install`, `npm-relink` should run afterward. If it doesn't, just run `npm i` again.
+
+When you add a new link using `npm link`, run `npm-relink init` afterward to capture changes.
 
 ## Further Development
 
